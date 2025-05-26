@@ -1,0 +1,59 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://pack-up.cz22a0iyw7zk.ap-northeast-2.rds.amazonaws.com:5432/packup
+    username: jmj
+    password: chiron#405
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+#  security:
+#    oauth2:
+#      client:
+#        registration:
+#          google:
+#            client-id: asdf
+#            client-secret: asdf
+#            scope: profile, email
+#          kakao:
+#            client-id: asdf
+#            client-secret: asdfx`
+#            client-authentication-method: asdf
+#            authorization-grant-type: authoriza  tion_code
+#            redirect-uri: "/api/auth/oauth2/callback/kakao"
+#            scope: profile_nickname, account_email
+#        provider:
+#          kakao:
+
+#            authorization-uri: https://kauth.kakao.com/oauth/authorize
+#            token-uri: https://kauth.kakao.com/oauth/token
+#            user-info-uri: https://kapi.kakao.com/v2/user/me
+#            user-name-attribute: id
+
+jwt:
+  secret: 9533b0e78f47c7c22079c58c028c6a54a3087527d78bb95cf5c03e1ee875291de22c887f990a5fbcfe6af215ca7184dd835b2a000c8698f3da54f04ba3eaf417ad214c41386bce70043434f988bb03c69b739486a257bf64f60d2c64b2e1461733e8e6d0c7880a5da404718eda56d1bc7b08d419080a26fad673ff6eb822589020271e12a159a1ecedcd762fa67dfb9a7f9a1d7b7f2f7b91f9fba9a9523e99bda33d24bf87fa8372454a3b1ec7dd59b3abdeec65922be8cd226646440d024b5d25dcd068e6dcae396dec56bfcc771a436153cde21404209166b5bdded96904ad9dc8516398224f0370c4c1889af1fb05a0a7b3ba3ca366be21547ee36c989d76fb369b2ac0d3bbe061873a5fe24e353ab5352e249b5392cc92f6ee9372aee1e959f516b049b488043e31d82c7c697846fb18baeaccb3a8ac733097d493eac7d5f13e71239e7b219919b8a1d7074a2b831c157bbdd766d3129656aefa904191f927525472bfc7661f048e630fac2a031f04147c0dbfacb87f66d7801cc4805cefe43df9595ee49c57094902a48f64e633381051149914bf6b595459a333ea975dab3fab0a3e63aafdd3d2ee0d87ae34004cf915cb1421484ceebfb1b8fb659deb837b31eb5802376b19115559f32ea01833c1b9637919dc70c4995fd73bb15d0396c958fb7c0196b643f83a1cec0201e5529d180933afd6140653c835247b9566
+  expiration: 10000
+  refresh-expiration: 604800000
+
+logging:
+  level:
+    org.hibernate.SQL: DEBUG                # SQL 구문
+    org.hibernate.type.descriptor.sql: TRACE  # 바인딩되는 파라미터 값
+
+payment:
+  toss:
+    secret-key: test_sk_EP59LybZ8BK4KG4mvagQ36GYo7pR
+    security-key: 8f7ab4398703c7c8be49a1b729f0339e597453d7563633a5af51ec66410e1d98
+
+firebase:
+  app-name: packup
+
+files:
+  attach_path: D:/projects/packup/files/ # 첨부 파일 경로
+  firebase_admin_sdk_path: classpath:packup-90eda-firebase-adminsdk-fbsvc-1a7064aeda.json
