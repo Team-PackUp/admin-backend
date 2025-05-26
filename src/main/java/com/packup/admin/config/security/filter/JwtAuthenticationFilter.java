@@ -2,7 +2,6 @@ package com.packup.admin.config.security.filter;
 
 import com.packup.admin.auth.presentation.AuthContext;
 import com.packup.admin.config.security.provider.JwtTokenProvider;
-import packup.auth.presentation.AuthContext;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
