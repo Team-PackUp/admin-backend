@@ -7,6 +7,7 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
+import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDateTime;
 
@@ -17,7 +18,16 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class AdminInfo extends BaseEntity {
+public class AdminInfo {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_admin_seq_gen")
+    @SequenceGenerator(
+            name = "user_admin_seq_gen",
+            sequenceName = "user_admin_seq",
+            allocationSize = 1
+    )
+    private Long seq;
 
     @Column(name = "admin_id", nullable = false, unique = true, length = 255)
     private String adminId;
@@ -32,6 +42,10 @@ public class AdminInfo extends BaseEntity {
     @Column(name = "delete_flag", columnDefinition = "yn_enum", nullable = false)
     @JdbcTypeCode(SqlTypes.NAMED_ENUM)
     private YnType deleteFlag = YnType.N;
+
+    @CreatedDate
+    @Column(name = "created_at", insertable = false, updatable = false)
+    private LocalDateTime createdAt;
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
