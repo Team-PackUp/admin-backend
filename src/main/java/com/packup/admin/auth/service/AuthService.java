@@ -4,6 +4,7 @@ import com.packup.admin.admin.domain.AdminInfo;
 import com.packup.admin.admin.domain.repository.AdminInfoRepository;
 import com.packup.admin.auth.domain.RefreshToken;
 import com.packup.admin.auth.domain.repository.RefreshTokenRepository;
+import com.packup.admin.auth.dto.AuthToken;
 import com.packup.admin.auth.dto.LoginRequest;
 import com.packup.admin.auth.dto.LoginResponse;
 import com.packup.admin.auth.exception.AuthException;
@@ -30,7 +31,7 @@ public class AuthService {
     private final RefreshTokenRepository refreshTokenRepository;
 
     @Transactional
-    public LoginResponse login(LoginRequest request) {
+    public AuthToken login(LoginRequest request) {
         String adminId = request.getAdminId();
         String password = request.getAdminId();
 
@@ -56,7 +57,7 @@ public class AuthService {
                         )
                 );
 
-        return new LoginResponse(accessToken, refreshToken);
+        return new AuthToken(accessToken, refreshToken);
     }
 
     public String refresh(String refreshToken) {
