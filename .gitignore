@@ -39,7 +39,6 @@ out/
 ### 환경설정 ###
 .env
 *.env
-application-*.yml
-application-*.properties
+**/application-*.yml
 
 *.log
