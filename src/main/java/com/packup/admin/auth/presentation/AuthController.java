@@ -1,5 +1,6 @@
 package com.packup.admin.auth.presentation;
 
+import com.packup.admin.auth.annotation.Auth;
 import com.packup.admin.auth.dto.*;
 import com.packup.admin.auth.service.AuthService;
 import jakarta.servlet.http.HttpServletResponse;
@@ -40,5 +41,21 @@ public class AuthController {
     public ResponseEntity<RefreshTokenResponse> refresh(@CookieValue("refreshToken") String refreshToken) {
         String accessToken = authService.refresh(refreshToken);
         return ResponseEntity.ok(new RefreshTokenResponse(accessToken));
+    }
+
+    @DeleteMapping("/logout")
+    public ResponseEntity<Void> logout(@Auth Long userId, HttpServletResponse response) {
+        authService.logout(userId);
+
+        ResponseCookie deleteCookie = ResponseCookie.from("refreshToken", "")
+                .httpOnly(true)
+                .secure(false)  // https true local false
+                .path("/")
+                .maxAge(0)
+                .sameSite("Strict")
+                .build();
+
+        response.addHeader("Set-Cookie", deleteCookie.toString());
+        return ResponseEntity.ok().build();
     }
 }
