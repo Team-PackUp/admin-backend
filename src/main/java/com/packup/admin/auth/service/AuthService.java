@@ -32,8 +32,8 @@ public class AuthService {
 
     @Transactional
     public AuthToken login(LoginRequest request) {
-        String adminId = request.getAdminId();
-        String password = request.getAdminId();
+        String adminId = request.getUsername();
+        String password = request.getPassword();
 
         AdminInfo admin = adminInfoRepository.findByAdminId(adminId)
                 .orElseThrow(() -> new AuthException(AuthExceptionType.NOT_FOUND_MEMBER));
