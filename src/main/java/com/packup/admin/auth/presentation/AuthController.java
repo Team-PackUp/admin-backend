@@ -26,10 +26,10 @@ public class AuthController {
 
         ResponseCookie cookie = ResponseCookie.from("refreshToken", authToken.refreshToken())
                 .httpOnly(true)
-                .secure(false) // HTTPS 환경에서만 true 로컬이면 false
+                .secure(true) // HTTPS 환경에서만 true 로컬이면 false
                 .path("/")
                 .maxAge(refreshExpirationMillis / 1000)
-                .sameSite("Strict")
+                .sameSite("None") // Strict
                 .build();
 
         response.addHeader("Set-Cookie", cookie.toString());
