@@ -42,8 +42,8 @@ public class AuthService {
             throw new AuthException(AuthExceptionType.NOT_FOUND_MEMBER);
         }
 
-        String accessToken = jwtTokenProvider.createToken(admin.getAdminId());
-        String refreshToken = jwtTokenProvider.createRefreshToken(admin.getAdminId());
+        String accessToken = jwtTokenProvider.createToken(String.valueOf(admin.getSeq()));
+        String refreshToken = jwtTokenProvider.createRefreshToken(String.valueOf(admin.getSeq()));
 
         refreshTokenRepository.findByUserId(admin.getSeq())
                 .ifPresentOrElse(
