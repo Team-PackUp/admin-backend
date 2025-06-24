@@ -1,6 +1,7 @@
 package com.packup.admin.system.presentation;
 
 import com.packup.admin.system.domain.SystemSetting;
+import com.packup.admin.system.dto.SystemSettingResponse;
 import com.packup.admin.system.service.SystemSettingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -12,10 +13,9 @@ import org.springframework.web.bind.annotation.*;
 public class SystemSettingController {
 
     private final SystemSettingService systemSettingService;
-//    private final
 
     @GetMapping
-    public ResponseEntity<SystemSetting> getSystemSetting() {
+    public ResponseEntity<SystemSettingResponse> getSystemSetting() {
         return ResponseEntity.ok(systemSettingService.getSetting());
     }
 
