@@ -1,6 +1,7 @@
 package com.packup.admin.system.presentation;
 
 import com.packup.admin.system.domain.SystemSetting;
+import com.packup.admin.system.dto.SystemSettingRequest;
 import com.packup.admin.system.dto.SystemSettingResponse;
 import com.packup.admin.system.service.SystemSettingService;
 import lombok.RequiredArgsConstructor;
@@ -20,8 +21,8 @@ public class SystemSettingController {
     }
 
     @PutMapping("/language")
-    public ResponseEntity<Void> updateLanguage(@RequestParam String language) {
-        systemSettingService.updateLanguage(language);
+    public ResponseEntity<Void> updateLanguage(@RequestBody SystemSettingRequest request) {
+        systemSettingService.updateLanguage(request.language());
         return ResponseEntity.ok().build();
     }
 }
