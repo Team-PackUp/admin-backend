@@ -2,8 +2,12 @@ package com.packup.admin.system.service;
 
 import com.packup.admin.common.domain.CommonCode;
 import com.packup.admin.common.domain.repository.CommonCodeRepository;
+import com.packup.admin.common.enums.YnType;
+import com.packup.admin.system.domain.Notice;
 import com.packup.admin.system.domain.SystemSetting;
+import com.packup.admin.system.domain.repository.NoticeRepository;
 import com.packup.admin.system.domain.repository.SystemSettingRepository;
+import com.packup.admin.system.dto.NoticeRequest;
 import com.packup.admin.system.dto.SystemSettingResponse;
 import com.packup.admin.system.exception.SystemSettingException;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +22,7 @@ public class SystemSettingService {
 
     private final SystemSettingRepository systemSettingRepository;
     private final CommonCodeRepository commonCodeRepository;
+    private final NoticeRepository noticeRepository;
 
 
     @Transactional
@@ -42,6 +47,25 @@ public class SystemSettingService {
         SystemSetting setting = systemSettingRepository.findById(1L).orElseThrow();
 
         setting.updateLanguage(code);
+    }
 
+    @Transactional
+    public void createNotice(Long memberId, NoticeRequest request) {
+        String codeName = request.isUrgent() ? "긴급" : "일반";
+
+        String noticeTypeCode = commonCodeRepository.findByCodeName(codeName)
+                .map(CommonCode::getCodeId)
+                .orElseThrow(() -> new SystemSettingException(NOT_FOUND_SETTING));
+
+            Notice notice = Notice.of(
+                request.title(),
+                request.content(),
+                memberId,
+                noticeTypeCode,
+                request.sendFcm() ? YnType.Y : YnType.N,
+                YnType.N
+        );
+
+        noticeRepository.save(notice);
     }
 }

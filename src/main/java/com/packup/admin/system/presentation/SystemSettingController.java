@@ -1,6 +1,8 @@
 package com.packup.admin.system.presentation;
 
+import com.packup.admin.auth.annotation.Auth;
 import com.packup.admin.system.domain.SystemSetting;
+import com.packup.admin.system.dto.NoticeRequest;
 import com.packup.admin.system.dto.SystemSettingRequest;
 import com.packup.admin.system.dto.SystemSettingResponse;
 import com.packup.admin.system.service.SystemSettingService;
@@ -25,4 +27,12 @@ public class SystemSettingController {
         systemSettingService.updateLanguage(request.language());
         return ResponseEntity.ok().build();
     }
+
+    @PostMapping("/notice")
+    public ResponseEntity<Void> createNotice(@Auth Long memberId, @RequestBody NoticeRequest request) {
+        systemSettingService.createNotice(memberId, request);
+        return ResponseEntity.ok().build();
+    }
+
+
 }
