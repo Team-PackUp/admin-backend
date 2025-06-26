@@ -54,5 +54,15 @@ public class SystemSettingController {
         return ResponseEntity.ok().build();
     }
 
+    @PutMapping("/notice/{id}")
+    public ResponseEntity<Void> updateNotice(
+            @Auth Long memberId,
+            @PathVariable Long id,
+            @RequestBody NoticeRequest request
+    ) {
+        systemSettingService.updateNotice(memberId, id, request);
+        return ResponseEntity.ok().build();
+    }
+
 
 }

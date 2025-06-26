@@ -85,4 +85,23 @@ public class SystemSettingService {
                 .orElseThrow(() -> new SystemSettingException(NOT_FOUND_NOTICE));
         notice.delete();
     }
+
+    @Transactional
+    public void updateNotice(Long memberId, Long id, NoticeRequest request) {
+        Notice notice = noticeRepository.findById(id)
+                .orElseThrow(() -> new SystemSettingException(NOT_FOUND_NOTICE));
+
+        String codeName = request.isUrgent() ? "긴급" : "일반";
+        String noticeTypeCode = commonCodeRepository.findByCodeName(codeName)
+                .map(CommonCode::getCodeId)
+                .orElseThrow(() -> new SystemSettingException(NOT_FOUND_SETTING));
+
+        notice.update(
+                request.title(),
+                request.content(),
+                noticeTypeCode,
+                request.sendFcm() ? YnType.Y : YnType.N
+        );
+    }
+
 }
