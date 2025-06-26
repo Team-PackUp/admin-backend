@@ -48,5 +48,11 @@ public class SystemSettingController {
         return ResponseEntity.ok(response);
     }
 
+    @DeleteMapping("/notice/{id}")
+    public ResponseEntity<Void> deleteNotice(@PathVariable Long id) {
+        systemSettingService.deleteNotice(id);
+        return ResponseEntity.ok().build();
+    }
+
 
 }

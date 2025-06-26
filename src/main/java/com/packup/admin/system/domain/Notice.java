@@ -53,6 +53,12 @@ public class Notice extends BaseEntity {
         this.updatedAt = LocalDateTime.now();
     }
 
+    public void delete() {
+        this.deleteFlag = YnType.Y;
+        this.updatedAt = LocalDateTime.now();
+    }
+
+
     private Notice(String title, Map<String, Object> content, Long adminSeq, String noticeType, YnType fcmFlag, YnType deleteFlag) {
         this.title = title;
         this.content = content;

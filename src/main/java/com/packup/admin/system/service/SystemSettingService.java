@@ -17,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import static com.packup.admin.system.exception.SystemSettingExceptionType.NOT_FOUND_NOTICE;
 import static com.packup.admin.system.exception.SystemSettingExceptionType.NOT_FOUND_SETTING;
 
 @Service
@@ -72,9 +73,16 @@ public class SystemSettingService {
         noticeRepository.save(notice);
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
     public Page<NoticeResponse> getNotices(Pageable pageable) {
         return noticeRepository.findByDeleteFlag(YnType.N, pageable)
                 .map(NoticeResponse::from);
+    }
+
+    @Transactional
+    public void deleteNotice(Long id) {
+        Notice notice = noticeRepository.findById(id)
+                .orElseThrow(() -> new SystemSettingException(NOT_FOUND_NOTICE));
+        notice.delete();
     }
 }
