@@ -3,10 +3,15 @@ package com.packup.admin.system.presentation;
 import com.packup.admin.auth.annotation.Auth;
 import com.packup.admin.system.domain.SystemSetting;
 import com.packup.admin.system.dto.NoticeRequest;
+import com.packup.admin.system.dto.NoticeResponse;
 import com.packup.admin.system.dto.SystemSettingRequest;
 import com.packup.admin.system.dto.SystemSettingResponse;
 import com.packup.admin.system.service.SystemSettingService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,6 +37,15 @@ public class SystemSettingController {
     public ResponseEntity<Void> createNotice(@Auth Long memberId, @RequestBody NoticeRequest request) {
         systemSettingService.createNotice(memberId, request);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/notices")
+    public ResponseEntity<Page<NoticeResponse>> getNotices(
+            @PageableDefault(sort = "createdAt", direction = Sort.Direction.DESC)
+            Pageable pageable
+    ) {
+        Page<NoticeResponse> response = systemSettingService.getNotices(pageable);
+        return ResponseEntity.ok(response);
     }
 
 

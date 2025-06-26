@@ -8,9 +8,12 @@ import com.packup.admin.system.domain.SystemSetting;
 import com.packup.admin.system.domain.repository.NoticeRepository;
 import com.packup.admin.system.domain.repository.SystemSettingRepository;
 import com.packup.admin.system.dto.NoticeRequest;
+import com.packup.admin.system.dto.NoticeResponse;
 import com.packup.admin.system.dto.SystemSettingResponse;
 import com.packup.admin.system.exception.SystemSettingException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -67,5 +70,11 @@ public class SystemSettingService {
         );
 
         noticeRepository.save(notice);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<NoticeResponse> getNotices(Pageable pageable) {
+        return noticeRepository.findByDeleteFlag(YnType.N, pageable)
+                .map(NoticeResponse::from);
     }
 }
