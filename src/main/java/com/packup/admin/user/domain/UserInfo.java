@@ -70,5 +70,26 @@ public class UserInfo  {
         prefer.assignUser(this);
     }
 
+    public void ban() {
+        this.banFlag = YnType.Y;
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    public void unban() {
+        this.banFlag = YnType.N;
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    public void withdraw() {
+        this.withdrawFlag = YnType.Y;
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    public void restore() {
+        this.withdrawFlag = YnType.N;
+        this.updatedAt = LocalDateTime.now();
+    }
+
+
 
 }

@@ -63,4 +63,17 @@ public class UserDetailInfo extends BaseEntity {
         this.age = age;
         this.updatedAt = LocalDateTime.now();
     }
+
+    public void recordBanInfo(String reason, Long adminSeq) {
+        this.banReason = reason;
+        this.banAdminSeq = adminSeq;
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    public void clearBanInfo() {
+        this.banReason = null;
+        this.banAdminSeq = null;
+        this.updatedAt = LocalDateTime.now();
+    }
+
 }
