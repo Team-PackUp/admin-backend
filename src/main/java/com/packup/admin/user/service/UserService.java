@@ -1,5 +1,6 @@
 package com.packup.admin.user.service;
 
+import com.packup.admin.admin.domain.repository.AdminInfoRepository;
 import com.packup.admin.user.domain.UserDetailInfo;
 import com.packup.admin.user.domain.UserInfo;
 import com.packup.admin.user.domain.repository.UserInfoRepository;
@@ -20,6 +21,7 @@ import static com.packup.admin.user.exception.UserExceptionType.NOT_FOUND_MEMBER
 public class UserService {
 
     private final UserInfoRepository userInfoRepository;
+    private final AdminInfoRepository adminInfoRepository;
 
     public Page<UserResponse> getUsers(UserSearchRequest request, Pageable pageable) {
         if (request.email() != null && !request.email().isBlank()) {

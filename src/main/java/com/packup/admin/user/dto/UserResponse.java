@@ -13,7 +13,7 @@ public record UserResponse(
         String nation,
         YnType banFlag,
         String banReason,
-        Long banAdminId,
+        String banAdminName,
         YnType withdrawFlag,
         LocalDateTime createdAt
 ) {}

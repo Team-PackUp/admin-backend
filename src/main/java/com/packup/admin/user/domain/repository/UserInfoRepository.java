@@ -19,12 +19,13 @@ public interface UserInfoRepository extends JpaRepository<UserInfo, Long> {
             d.nation,
             u.banFlag,
             d.banReason,
-            d.banAdminSeq,
+            a.adminId,
             u.withdrawFlag,
             u.createdAt
         )
         from UserInfo u
         left join u.detailInfo d
+        left join AdminInfo a on d.banAdminSeq = a.seq
         where u.email like concat('%', :email, '%')
     """)
     Page<UserResponse> findByEmailContaining(String email, Pageable pageable);
@@ -39,12 +40,13 @@ public interface UserInfoRepository extends JpaRepository<UserInfo, Long> {
             d.nation,
             u.banFlag,
             d.banReason,
-            d.banAdminSeq,
+            a.adminId,
             u.withdrawFlag,
             u.createdAt
         )
         from UserInfo u
         left join u.detailInfo d
+        left join AdminInfo a on d.banAdminSeq = a.seq
         where d.nickname like concat('%', :nickname, '%')
     """)
     Page<UserResponse> findByNicknameContaining(String nickname, Pageable pageable);
@@ -59,12 +61,13 @@ public interface UserInfoRepository extends JpaRepository<UserInfo, Long> {
             d.nation,
             u.banFlag,
             d.banReason,
-            d.banAdminSeq,
+            a.adminId,
             u.withdrawFlag,
             u.createdAt
         )
         from UserInfo u
         left join u.detailInfo d
+        left join AdminInfo a on d.banAdminSeq = a.seq
         where str(u.seq) like concat('%', :seq, '%')
     """)
     Page<UserResponse> findBySeqContaining(String seq, Pageable pageable);
@@ -79,12 +82,13 @@ public interface UserInfoRepository extends JpaRepository<UserInfo, Long> {
             d.nation,
             u.banFlag,
             d.banReason,
-            d.banAdminSeq,
+            a.adminId,
             u.withdrawFlag,
             u.createdAt
         )
         from UserInfo u
         left join u.detailInfo d
+        left join AdminInfo a on d.banAdminSeq = a.seq
     """)
     Page<UserResponse> findAllUserResponses(Pageable pageable);
 }
