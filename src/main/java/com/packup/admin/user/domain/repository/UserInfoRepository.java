@@ -14,9 +14,9 @@ public interface UserInfoRepository extends JpaRepository<UserInfo, Long> {
             u.seq,
             u.email,
             d.nickname,
-            u.joinType,
+            joinCode.codeName,
             d.age,
-            d.nation,
+            nationCode.codeName,
             u.banFlag,
             d.banReason,
             a.adminId,
@@ -26,6 +26,8 @@ public interface UserInfoRepository extends JpaRepository<UserInfo, Long> {
         from UserInfo u
         left join u.detailInfo d
         left join AdminInfo a on d.banAdminSeq = a.seq
+        left join CommonCode joinCode on u.joinType = joinCode.codeId
+        left join CommonCode nationCode on d.nation = nationCode.codeId
         where u.email like concat('%', :email, '%')
     """)
     Page<UserResponse> findByEmailContaining(String email, Pageable pageable);
@@ -35,9 +37,9 @@ public interface UserInfoRepository extends JpaRepository<UserInfo, Long> {
             u.seq,
             u.email,
             d.nickname,
-            u.joinType,
+            joinCode.codeName,
             d.age,
-            d.nation,
+            nationCode.codeName,
             u.banFlag,
             d.banReason,
             a.adminId,
@@ -47,6 +49,8 @@ public interface UserInfoRepository extends JpaRepository<UserInfo, Long> {
         from UserInfo u
         left join u.detailInfo d
         left join AdminInfo a on d.banAdminSeq = a.seq
+        left join CommonCode joinCode on u.joinType = joinCode.codeId
+        left join CommonCode nationCode on d.nation = nationCode.codeId
         where d.nickname like concat('%', :nickname, '%')
     """)
     Page<UserResponse> findByNicknameContaining(String nickname, Pageable pageable);
@@ -56,9 +60,9 @@ public interface UserInfoRepository extends JpaRepository<UserInfo, Long> {
             u.seq,
             u.email,
             d.nickname,
-            u.joinType,
+            joinCode.codeName,
             d.age,
-            d.nation,
+            nationCode.codeName,
             u.banFlag,
             d.banReason,
             a.adminId,
@@ -68,6 +72,8 @@ public interface UserInfoRepository extends JpaRepository<UserInfo, Long> {
         from UserInfo u
         left join u.detailInfo d
         left join AdminInfo a on d.banAdminSeq = a.seq
+        left join CommonCode joinCode on u.joinType = joinCode.codeId
+        left join CommonCode nationCode on d.nation = nationCode.codeId
         where str(u.seq) like concat('%', :seq, '%')
     """)
     Page<UserResponse> findBySeqContaining(String seq, Pageable pageable);
@@ -77,9 +83,9 @@ public interface UserInfoRepository extends JpaRepository<UserInfo, Long> {
             u.seq,
             u.email,
             d.nickname,
-            u.joinType,
+            joinCode.codeName,
             d.age,
-            d.nation,
+            nationCode.codeName,
             u.banFlag,
             d.banReason,
             a.adminId,
@@ -89,6 +95,8 @@ public interface UserInfoRepository extends JpaRepository<UserInfo, Long> {
         from UserInfo u
         left join u.detailInfo d
         left join AdminInfo a on d.banAdminSeq = a.seq
+        left join CommonCode joinCode on u.joinType = joinCode.codeId
+        left join CommonCode nationCode on d.nation = nationCode.codeId
     """)
     Page<UserResponse> findAllUserResponses(Pageable pageable);
 }
