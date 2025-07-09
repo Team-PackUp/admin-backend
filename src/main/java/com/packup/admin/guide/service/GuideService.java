@@ -1,9 +1,11 @@
 package com.packup.admin.guide.service;
 
 
+import com.packup.admin.common.domain.CommonCode;
 import com.packup.admin.common.domain.repository.CommonCodeRepository;
 import com.packup.admin.guide.domain.GuideApplication;
 import com.packup.admin.guide.domain.repository.GuideApplicationRepository;
+import com.packup.admin.guide.dto.GuideApplicationDetailResponse;
 import com.packup.admin.guide.dto.GuideApplicationResponse;
 import com.packup.admin.guide.dto.GuideApplicationSearchRequest;
 import com.packup.admin.guide.exception.GuideException;
@@ -12,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -46,6 +49,23 @@ public class GuideService {
         }
 
         return guideRepository.findAllByStatuses(codeIds, pageable);
+    }
+
+    @Transactional(readOnly = true)
+    public GuideApplicationDetailResponse getApplicationDetail(Long id) {
+        GuideApplication application = guideRepository.findById(id)
+                .orElseThrow(() -> new GuideException(GuideExceptionType.NOT_FOUND_APPLICATION));
+
+        String codeName = commonCodeRepository.findByCodeId(application.getStatusCode())
+                .map(CommonCode::getCodeName)
+                .orElseThrow(() -> new GuideException(GuideExceptionType.NOT_FOUND_APPLICATION));
+
+        return GuideApplicationDetailResponse.builder()
+                .seq(application.getSeq())
+                .status(codeName)
+                .idImageUrl(application.getIdDocumentUrl())
+                .content(application.getContent())
+                .build();
     }
 
 

@@ -1,5 +1,6 @@
 package com.packup.admin.guide.presentation;
 
+import com.packup.admin.guide.dto.GuideApplicationDetailResponse;
 import com.packup.admin.guide.dto.GuideApplicationResponse;
 import com.packup.admin.guide.dto.GuideApplicationSearchRequest;
 import com.packup.admin.guide.service.GuideService;
@@ -27,6 +28,15 @@ public class GuideController {
         Page<GuideApplicationResponse> result = guideService.getApplications(request, pageable);
         return ResponseEntity.ok(result);
     }
+
+    @GetMapping("/applications/{id}")
+    public ResponseEntity<GuideApplicationDetailResponse> getApplicationDetail(
+            @PathVariable Long id
+    ) {
+        GuideApplicationDetailResponse response = guideService.getApplicationDetail(id);
+        return ResponseEntity.ok(response);
+    }
+
 
 
 }
