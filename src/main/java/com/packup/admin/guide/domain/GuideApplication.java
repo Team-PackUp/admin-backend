@@ -1,27 +1,22 @@
 package com.packup.admin.guide.domain;
 
-import com.fasterxml.jackson.databind.JsonNode;
+import com.packup.admin.common.domain.BaseEntity;
 import com.packup.admin.user.domain.UserInfo;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
-import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
 import java.util.Map;
 
-@Entity
-@Table(name = "guide_application")
 @Getter
 @NoArgsConstructor
-public class GuideApplication {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+@Entity
+@Table(name = "guide_application")
+public class GuideApplication extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
@@ -37,10 +32,11 @@ public class GuideApplication {
     @Column(name = "status_code", nullable = false, length = 50)
     private String statusCode;
 
-    @CreatedDate
-    @Column(updatable = false)
-    private LocalDateTime createdAt;
-
     @LastModifiedDate
+    @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    public void updateStatus(String statusCode) {
+        this.statusCode = statusCode;
+    }
 }
