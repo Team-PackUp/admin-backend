@@ -69,10 +69,31 @@ public class GuideService {
                 .build();
     }
 
+    @Transactional
+    public void approveApplication(Long memberId, Long id) {
+    }
 
-//    public void updateStatus(Long id, String status) {
-//        GuideApplication app = guideRepository.findById(id)
-//                .orElseThrow(() -> new NotFoundException("신청 내역이 존재하지 않습니다."));
-//        app.setStatusCode(status); // setter 또는 커맨드 메서드 필요
-//    }
+    @Transactional
+    public void updateApplicationStatus(Long memberId, Long id, String status) {
+        GuideApplication application = guideRepository.findById(id)
+                .orElseThrow(() -> new GuideException(GuideExceptionType.NOT_FOUND_APPLICATION));
+
+        if (!application.getStatusCode().equals("060001")) {
+            throw new GuideException(GuideExceptionType.ALREADY_PROCESSED_APPLICATION);
+        }
+
+        if (status.equals("APPROVED")) {
+            throw new GuideException(GuideExceptionType.INVALID_REQUEST);
+        }
+
+        String statusCode = commonCodeRepository.findByCodeName(status)
+                .orElseThrow(() -> new GuideException(GuideExceptionType.NOT_FOUND_APPLICATION))
+                .getCodeId();
+
+        application.updateStatus(statusCode, memberId);
+    }
+
+
+
+
 }
