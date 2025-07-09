@@ -61,6 +61,7 @@ public class GuideService {
                 .orElseThrow(() -> new GuideException(GuideExceptionType.NOT_FOUND_APPLICATION));
 
         // 이미지는 S3 등 외부 저장소에 있고 바로 보여줄 수 있다고 가정
+        // 신분증 관련 이미지니까 보안 관련 이슈 있을 수 있음
         return GuideApplicationDetailResponse.builder()
                 .seq(application.getSeq())
                 .status(codeName)
