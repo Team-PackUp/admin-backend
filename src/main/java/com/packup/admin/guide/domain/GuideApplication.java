@@ -39,7 +39,9 @@ public class GuideApplication extends BaseEntity {
     @Column(name = "confirm_admin_seq")
     private Long confirmedAdminSeq;
 
-    public void updateStatus(String statusCode) {
+    public void updateStatus(String statusCode, Long memberId) {
         this.statusCode = statusCode;
+        this.updatedAt = LocalDateTime.now();
+        this.confirmedAdminSeq = memberId;
     }
 }
