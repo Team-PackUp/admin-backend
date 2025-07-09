@@ -60,6 +60,7 @@ public class GuideService {
                 .map(CommonCode::getCodeName)
                 .orElseThrow(() -> new GuideException(GuideExceptionType.NOT_FOUND_APPLICATION));
 
+        // 이미지는 S3 등 외부 저장소에 있고 바로 보여줄 수 있다고 가정
         return GuideApplicationDetailResponse.builder()
                 .seq(application.getSeq())
                 .status(codeName)
